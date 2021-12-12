@@ -9,7 +9,7 @@ class PostScreen extends StatelessWidget {
       child: Column(
         children: [
           // cunpleaños
-          BirthdaySlider(),
+          // BirthdaySlider(),
 
           // publicaciones
 

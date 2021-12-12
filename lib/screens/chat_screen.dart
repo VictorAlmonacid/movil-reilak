@@ -6,8 +6,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-
-
 class ChatScreen extends StatefulWidget {
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -46,7 +44,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 padding: const EdgeInsets.all(10.0),
                 child: GestureDetector(
                   onTap: () {
-                    final chatService = Provider.of<ChatService>(context, listen: false);
+                    final chatService =
+                        Provider.of<ChatService>(context, listen: false);
                     chatService.chatSelecionado = chats[index];
                     Navigator.pushNamed(context, 'chat_history');
                   },
@@ -80,21 +79,59 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                               Opacity(
                                 opacity: 0.64,
-                                child: Text(
-                                  chats[index].lastmessage?[0].message ?? '' ,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                child: Column(
+                                  children: [
+                                    chats[index]
+                                                .lastmessage![0]
+                                                .message
+                                                .length >
+                                            3
+                                        ? chats[index].lastmessage![0].message.substring(
+                                                  chats[index].lastmessage![0].message.length -
+                                                      3) ==
+                                                'jpg' || chats[index].lastmessage![0].message.substring(
+                                                  chats[index].lastmessage![0].message.length -
+                                                      3) ==
+                                                'jpge' || chats[index].lastmessage![0].message.substring(
+                                                  chats[index].lastmessage![0].message.length -
+                                                      3) ==
+                                              'png' ||
+                                                chats[index].lastmessage![0].message.substring(
+                                                  chats[index].lastmessage![0].message.length -
+                                                      3) ==
+                                                'gif'
+                                            ? Text('Imagen')
+                                            : chats[index].lastmessage![0].message.substring(
+                                                  chats[index].lastmessage![0].message.length -
+                                                      3) ==
+                                                    'mp4'
+                                                ? Text('Video')
+                                                : Text(chats[index]
+                                                .lastmessage![0]
+                                                .message,  maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,)
+                                        : Text(
+                                            chats[index]
+                                                .lastmessage![0]
+                                                .message,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      Opacity(opacity: 0.64, child: Text(DateFormat('kk:mm dd-MM').format(
-                                            chats[index].lastmessage![0]
-                                                .fecha
-                                                .toUtc()
-                                                .toLocal()))),
+                      Opacity(
+                          opacity: 0.64,
+                          child: Text(DateFormat('kk:mm dd-MM').format(
+                              chats[index]
+                                  .lastmessage![0]
+                                  .fecha
+                                  .toUtc()
+                                  .toLocal()))),
                     ],
                   ),
                 ),

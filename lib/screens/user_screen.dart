@@ -97,73 +97,73 @@ class userScreen extends StatelessWidget {
           ],
         ),
         Divider(),
-        Text(
-          'Dedicatorias por tu cumpleaños',
-          style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF9146FF)),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 2,
-            itemBuilder: (BuildContext context, int index) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://facesymmetry.fun/images/person/sergio-ramos.jpg'),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Yonathan Esteban Soto Martinez',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              'Hace 5h',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Container(
-                      child: Text(
-                        'Culpa velit anim velit ipsum in veniam ex in nisi nostrud excepteur elion ut. Labore deserunt labore enim et. Aliquip excepteur dolore eiusmod aliqua.',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    FadeInImage(
-                      placeholder: AssetImage('assets/logo.png'),
-                      image: NetworkImage(
-                          'https://images2-mega.cdn.mdstrm.com/etcetera/2021/01/04/14105_1_5ff3a618c952a.jpg?d=1200x500'),
-                      fit: BoxFit.cover,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.check_circle,
-                          color: Color(0xFF9146FF),
-                          size: 35,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        )
+        // Text(
+        //   'Dedicatorias por tu cumpleaños',
+        //   style: TextStyle(
+        //       fontSize: 17,
+        //       fontWeight: FontWeight.bold,
+        //       color: Color(0xFF9146FF)),
+        // ),
+        // Expanded(
+        //   child: ListView.builder(
+        //     itemCount: 2,
+        //     itemBuilder: (BuildContext context, int index) => Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: Container(
+        //         color: Colors.white,
+        //         child: Column(
+        //           children: [
+        //             Row(
+        //               children: [
+        //                 CircleAvatar(
+        //                   backgroundImage: NetworkImage(
+        //                       'https://facesymmetry.fun/images/person/sergio-ramos.jpg'),
+        //                 ),
+        //                 Column(
+        //                   crossAxisAlignment: CrossAxisAlignment.start,
+        //                   children: [
+        //                     Text(
+        //                       'Yonathan Esteban Soto Martinez',
+        //                       style: TextStyle(fontSize: 16),
+        //                     ),
+        //                     Text(
+        //                       'Hace 5h',
+        //                       style:
+        //                           TextStyle(fontSize: 12, color: Colors.grey),
+        //                     ),
+        //                   ],
+        //                 )
+        //               ],
+        //             ),
+        //             Container(
+        //               child: Text(
+        //                 'Culpa velit anim velit ipsum in veniam ex in nisi nostrud excepteur elion ut. Labore deserunt labore enim et. Aliquip excepteur dolore eiusmod aliqua.',
+        //                 style: TextStyle(fontSize: 16),
+        //               ),
+        //             ),
+        //             FadeInImage(
+        //               placeholder: AssetImage('assets/logo.png'),
+        //               image: NetworkImage(
+        //                   'https://images2-mega.cdn.mdstrm.com/etcetera/2021/01/04/14105_1_5ff3a618c952a.jpg?d=1200x500'),
+        //               fit: BoxFit.cover,
+        //             ),
+        //             Row(
+        //               mainAxisAlignment: MainAxisAlignment.end,
+        //               crossAxisAlignment: CrossAxisAlignment.end,
+        //               children: [
+        //                 Icon(
+        //                   Icons.check_circle,
+        //                   color: Color(0xFF9146FF),
+        //                   size: 35,
+        //                 ),
+        //               ],
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // )
       ],
     );
   }
