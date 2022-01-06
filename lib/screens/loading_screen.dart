@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:reilak_app/screens/home_screen.dart';
 import 'package:reilak_app/screens/login_screen.dart';
 import 'package:reilak_app/services/auth_service.dart';
+import 'package:reilak_app/services/socket_service.dart';
 
 class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+        
     return Scaffold(
       body: FutureBuilder(
           future: checkLoginState(context),
@@ -20,11 +22,12 @@ class LoadingScreen extends StatelessWidget {
 
   Future checkLoginState(BuildContext context) async {
     final authService = Provider.of<AuthService>(context, listen: false);
-
+final socketService = Provider.of<SocketService>(context, listen: false);
     final autenticado = await authService.isLoggedIn();
 
     if (autenticado) {
       // conectar al socket sever
+      socketService.connect();
       // Navigator.pushReplacementNamed(context, 'home');
       Navigator.pushReplacement(
           context,

@@ -34,39 +34,39 @@ class Chat {
         required this.members,
         this.admin,
         this.lastmessage,
-        required this.fecha,
-        required this.tipo,
-        required this.id,
         this.name,
         this.img,
         this.descripcion,
         this.privacidad,
+       this.tipo,
+        required this.fecha,
+        required this.id,
     });
 
     List<User> user;
     List<String> members;
     List<String>? admin;
     List<Lastmessage>? lastmessage;
-    DateTime fecha;
-    String tipo;
-    String id;
     String? name;
     String? img;
     String? descripcion;
     String? privacidad;
+    String? tipo;
+    DateTime fecha;
+    String id;
 
     factory Chat.fromJson(Map<String, dynamic> json) => Chat(
         user: List<User>.from(json["user"].map((x) => User.fromJson(x))),
         members: List<String>.from(json["members"].map((x) => x)),
         admin: List<String>.from(json["admin"].map((x) => x)),
         lastmessage: List<Lastmessage>.from(json["lastmessage"].map((x) => Lastmessage.fromJson(x))),
-        fecha: DateTime.parse(json["fecha"]),
-        tipo: json["tipo"],
-        id: json["id"],
         name: json["name"] == null ? null : json["name"],
         img: json["img"] == null ? null : json["img"],
         descripcion: json["descripcion"] == null ? null : json["descripcion"],
         privacidad: json["privacidad"] == null ? null : json["privacidad"],
+        tipo: json["tipo"],
+        fecha: DateTime.parse(json["fecha"]),
+        id: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -74,53 +74,73 @@ class Chat {
         "members": List<dynamic>.from(members.map((x) => x)),
         "admin": List<dynamic>.from(admin!.map((x) => x)),
         "lastmessage": List<dynamic>.from(lastmessage!.map((x) => x.toJson())),
-        "fecha": fecha.toIso8601String(),
-        "tipo": tipo,
-        "id": id,
         "name": name == null ? null : name,
         "img": img == null ? null : img,
         "descripcion": descripcion == null ? null : descripcion,
         "privacidad": privacidad == null ? null : privacidad,
+        "tipo": tipo,
+        "fecha": fecha.toIso8601String(),
+        "id": id,
     };
 }
 
 class Lastmessage {
     Lastmessage({
-        this.viewedby,
         required this.id,
         required this.from,
         required this.to,
         required this.message,
+        required this.viewedby,
         required this.fecha,
         required this.v,
     });
 
-    List<String>? viewedby;
     String id;
     String from;
     String to;
     String message;
+    List<Viewedby> viewedby;
     DateTime fecha;
     int v;
 
     factory Lastmessage.fromJson(Map<String, dynamic> json) => Lastmessage(
-        viewedby: List<String>.from(json["viewedby"].map((x) => x)),
         id: json["_id"],
         from: json["from"],
         to: json["to"],
         message: json["message"],
+        viewedby: List<Viewedby>.from(json["viewedby"].map((x) => Viewedby.fromJson(x))),
         fecha: DateTime.parse(json["fecha"]),
         v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {
-        "viewedby": List<dynamic>.from(viewedby!.map((x) => x)),
         "_id": id,
         "from": from,
         "to": to,
         "message": message,
+        "viewedby": List<dynamic>.from(viewedby.map((x) => x.toJson())),
         "fecha": fecha.toIso8601String(),
         "__v": v,
+    };
+}
+
+class Viewedby {
+    Viewedby({
+       required this.id,
+       required this.fecha,
+    });
+
+    String id;
+    DateTime fecha;
+
+    factory Viewedby.fromJson(Map<String, dynamic> json) => Viewedby(
+        id: json["_id"],
+        fecha: DateTime.parse(json["fecha"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "fecha": fecha.toIso8601String(),
     };
 }
 
@@ -132,21 +152,21 @@ class User {
         required this.online,
         required this.theme,
         required this.id,
-         this.nombre,
-        required this.segundoNombre,
-        required this.apellidoPaterno,
+        required this.name,
+        required this.email,
+        required this.password,
+        required this.v,
         required this.apellidoMaterno,
+        required this.apellidoPaterno,
         required this.area,
         required this.cargo,
+        required this.emailp,
         required this.fono,
         required this.nacimiento,
-        required this.email,
-        required this.emailp,
-        required this.imgusuario,
-        required this.name,
-        required this.password,
         required this.rol,
         required this.rut,
+        required this.segundoNombre,
+        required this.imgusuario,
         required this.edad,
         required this.ingreso,
     });
@@ -157,21 +177,21 @@ class User {
     bool online;
     String theme;
     String id;
-    String? nombre;
-    String segundoNombre;
-    String apellidoPaterno;
+    String name;
+    String email;
+    String password;
+    int v;
     String apellidoMaterno;
+    String apellidoPaterno;
     String area;
     String cargo;
+    String emailp;
     String fono;
     DateTime nacimiento;
-    String email;
-    String emailp;
-    String imgusuario;
-    String name;
-    String password;
     String rol;
     String rut;
+    String segundoNombre;
+    String imgusuario;
     String edad;
     DateTime ingreso;
 
@@ -182,21 +202,21 @@ class User {
         online: json["online"],
         theme: json["theme"],
         id: json["_id"],
-        nombre: json["nombre"],
-        segundoNombre: json["segundoNombre"],
-        apellidoPaterno: json["apellidoPaterno"],
+        name: json["name"],
+        email: json["email"],
+        password: json["password"],
+        v: json["__v"],
         apellidoMaterno: json["apellidoMaterno"],
+        apellidoPaterno: json["apellidoPaterno"],
         area: json["area"],
         cargo: json["cargo"],
+        emailp: json["emailp"],
         fono: json["fono"],
         nacimiento: DateTime.parse(json["nacimiento"]),
-        email: json["email"],
-        emailp: json["emailp"],
-        imgusuario: json["imgusuario"],
-        name: json["name"],
-        password: json["password"],
         rol: json["rol"],
         rut: json["rut"],
+        segundoNombre: json["segundoNombre"],
+        imgusuario: json["imgusuario"],
         edad: json["edad"],
         ingreso: DateTime.parse(json["ingreso"]),
     );
@@ -208,21 +228,21 @@ class User {
         "online": online,
         "theme": theme,
         "_id": id,
-        "nombre": nombre,
-        "segundoNombre": segundoNombre,
-        "apellidoPaterno": apellidoPaterno,
+        "name": name,
+        "email": email,
+        "password": password,
+        "__v": v,
         "apellidoMaterno": apellidoMaterno,
+        "apellidoPaterno": apellidoPaterno,
         "area": area,
         "cargo": cargo,
+        "emailp": emailp,
         "fono": fono,
         "nacimiento": nacimiento.toIso8601String(),
-        "email": email,
-        "emailp": emailp,
-        "imgusuario": imgusuario,
-        "name": name,
-        "password": password,
         "rol": rol,
         "rut": rut,
+        "segundoNombre": segundoNombre,
+        "imgusuario": imgusuario,
         "edad": edad,
         "ingreso": ingreso.toIso8601String(),
     };

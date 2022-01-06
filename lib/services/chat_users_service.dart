@@ -1,22 +1,21 @@
-
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:reilak_app/global/environment.dart';
-import 'package:reilak_app/models/calendar_response.dart';
+import 'package:reilak_app/models/user_response.dart';
 import 'package:reilak_app/services/auth_service.dart';
 
-class CalendarService extends ChangeNotifier {
-  Evento? eventoSelecionado;
+class ChatUsersService extends ChangeNotifier {
+  Usuario? usuarioSeleccionado;
 
-    Future<List<Evento>> getEvents() async {
-    final uri = Uri.parse('${Environment.apiUrl}/event');
+    Future<List<Usuario>> getUsers() async {
+    final uri = Uri.parse('${Environment.apiUrl}/user');
 
     final resp = await http.get(uri, headers: {
       'Content-Type': 'application/json',
       'x-token': await AuthService.getToken(),
     });
 
-    final eventResponse = calendarResponseFromJson(resp.body);
-    return eventResponse.eventos;
+    final userResponse = userResponseFromJson(resp.body);
+    return userResponse.usuario;
   }
 }

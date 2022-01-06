@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reilak_app/services/auth_service.dart';
+import 'package:reilak_app/services/socket_service.dart';
 
 class userScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
     final usuario = authService.usuario;
     return Column(
       children: [
@@ -19,11 +21,13 @@ class userScreen extends StatelessWidget {
                   Row(
                     children: [
                       CircleAvatar(
-                      //   backgroundImage: NetworkImage(
-                      //       'https://www.anmosugoi.com/wp-content/uploads/2021/04/Konata-Izumi.3-1068x601.jpg'),
-                      //   radius: 40,
-                      // ),
-                      backgroundImage: NetworkImage(usuario?.imgusuario.toString() ?? 'assets/no-image.jpg'),
+                        //   backgroundImage: NetworkImage(
+                        //       'https://www.anmosugoi.com/wp-content/uploads/2021/04/Konata-Izumi.3-1068x601.jpg'),
+                        //   radius: 40,
+                        // ),
+                        backgroundImage: NetworkImage(
+                            usuario?.imgusuario.toString() ??
+                                'assets/no-image.jpg'),
                       ),
                       SizedBox(
                         width: 10,
@@ -47,10 +51,10 @@ class userScreen extends StatelessWidget {
                   )
                 ],
               ),
-              Icon(
-                Icons.settings,
-                size: 40,
-              ),
+              // Icon(
+              //   Icons.settings,
+              //   size: 40,
+              // ),
             ],
           ),
         ),
@@ -68,28 +72,30 @@ class userScreen extends StatelessWidget {
                   elevation: 0,
                   color: Colors.grey,
                   child: Container(
-            
                     child: Row(
                       children: [
                         Text(
                           'Cerrar Sesion',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
-                        Icon(Icons.exit_to_app, color: Colors.white,),
-                        Divider(color: Colors.transparent,)
+                        Icon(
+                          Icons.exit_to_app,
+                          color: Colors.white,
+                        ),
+                        Divider(
+                          color: Colors.transparent,
+                        )
                       ],
-                    
                     ),
                   ),
                   // Navigator.pushNamed(context, 'home',
                   //     arguments: 'home')
                   onPressed: () {
                     //TODO: desconectarse socket servers
-
-                  AuthService.deleteToken();
-                  Navigator.pushReplacementNamed(context, 'login');
-                  AuthService.deleteToken();
-
+                    socketService.disconnect();
+                    AuthService.deleteToken();
+                    Navigator.pushReplacementNamed(context, 'login');
+                    AuthService.deleteToken();
                   },
                 ),
               ],

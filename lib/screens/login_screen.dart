@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reilak_app/helpers/show_alert.dart';
 import 'package:reilak_app/services/auth_service.dart';
+import 'package:reilak_app/services/socket_service.dart';
 
 class LoginScreen extends StatelessWidget {
   final emailCtrl = TextEditingController();
@@ -10,6 +11,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Scaffold(
         backgroundColor: Color(0xffF2F2F2),
@@ -93,6 +95,7 @@ class LoginScreen extends StatelessWidget {
                           FocusScope.of(context).unfocus();
                           final loginOk = await authService.login(emailCtrl.text.trim(), passwordCtrl.text.trim());
                           if(loginOk){
+                            socketService.connect();
                             //navegar
                             Navigator.pushReplacementNamed(context, 'home');
                           }else{

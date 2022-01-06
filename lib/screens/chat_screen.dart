@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reilak_app/models/chat_response.dart';
+import 'package:reilak_app/services/auth_service.dart';
 import 'package:reilak_app/services/chat_service.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:reilak_app/services/socket_service.dart';
+
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -12,20 +15,26 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+    SocketService? socketService;
+      AuthService? authService;
   RefreshController _refreshController =
       RefreshController(initialRefresh: true);
   final chatService = new ChatService();
+  
 
   List<Chat> chats = [];
 
   @override
   void initState() {
+    this.socketService = Provider.of<SocketService>(context, listen: false);
+    this.authService = Provider.of<AuthService>(context, listen: false);
     _cargarPosts();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: (AppBar(
         title: Text('Chats'),
@@ -43,7 +52,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: (){
+                    _handleSubmit(chats[index]);
                     final chatService =
                         Provider.of<ChatService>(context, listen: false);
                     chatService.chatSelecionado = chats[index];
@@ -141,7 +151,9 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'chat_create_room');
+        },
         child: Icon(
           Icons.person_add_alt_1,
           color: Colors.white,
@@ -155,5 +167,27 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {});
 
     _refreshController.refreshCompleted();
+  }
+
+
+    _handleSubmit(idChat) {
+      print('el id chat es: ${idChat}');
+      print('el id user es: ${authService?.usuario!.uid}');
+      final id = idChat;
+      final uid = authService?.usuario!.uid;
+      final data = {
+        id,
+        uid
+      };
+
+    this.socketService!.emit('read-last-message', {
+      'data':{'id':id,'uid': uid}
+    });
+  }
+
+    @override
+  void dispose() {
+    this.socketService!.socket.off('send-message');
+    super.dispose();
   }
 }
